@@ -8,6 +8,9 @@
   text-decoration: none;
   border: none;
   outline: none;
+}
+
+* {
   font-family: 'Poppins', sans-serif;
 }
 
@@ -284,7 +287,7 @@ section {
 .portfolio-box .portfolio-layer {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(15,17,23,0.97) 0%, rgba(15,17,23,0.6) 60%, transparent 100%);
+  background: linear-gradient(rgba(0, 0, 0, 0.1), var(--accent));
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
