@@ -32,108 +32,29 @@
 
     <main>
       <header class="intro">
-        <pre class="codefall" aria-hidden="true"></pre>
         <h1 class="intro__title">Software</h1>
-        <div class="intro__text">
-          <p>I build tools for my own life first. If I use something every day, it gets better every day. These three are running on my PCs right now.</p>
-          <ul class="intro__index">
-            <li><a href="#noctis-os">Noctis OS</a></li>
-            <li><a href="#noctis-editor">Noctis Editor</a></li>
-            <li><a href="#glycolens">glycolens</a></li>
-          </ul>
-        </div>
+        <p class="intro__text">Tools I build for my own life first, and the projects that taught me how. Pick one to open it.</p>
       </header>
 
-      <article class="project" id="noctis-os">
-        <header class="project__head">
-          <h2>Noctis OS</h2>
-          <p>My own control plane for AI agents</p>
-        </header>
-        <figure class="frame glass" data-glass-scale="70">
-          <video src="../media/noctis-os.mp4" poster="../media/noctis-os.jpg" muted loop playsinline preload="none"></video>
-          <button class="sound glass" type="button" data-glass-scale="40">Play with sound</button>
-        </figure>
-        <div class="project__info">
-          <p>I talk to Noctis from my phone or my desk. It runs Claude Code and Codex across my home and work PCs, remembers what matters from my notes, opens live panels while it works, and stops to ask me before anything spends money or leaves the house. Vesper is the name it answers to.</p>
-          <dl>
-            <div><dt>Built with</dt><dd>TypeScript, React, Node, Rust</dd></div>
-            <div><dt>Runs on</dt><dd>Two Windows PCs and my phone</dd></div>
-          </dl>
-          <p class="project__links"><a href="https://github.com/MrZarrar/Noctis-OS" target="_blank" rel="noopener">Code on GitHub</a></p>
-        </div>
-      </article>
+      <section class="gallery" aria-label="Projects"></section>
 
-      <article class="project" id="noctis-editor">
-        <header class="project__head">
-          <h2>Noctis Editor</h2>
-          <p>A video editor Claude can cut with you</p>
-        </header>
-        <figure class="frame glass" data-glass-scale="70">
-          <video src="../media/noctis-editor.mp4" poster="../media/noctis-editor.jpg" muted loop playsinline preload="none"></video>
-          <button class="sound glass" type="button" data-glass-scale="40">Play with sound</button>
-        </figure>
-        <div class="project__info">
-          <p>Ask for an edit in plain words and Claude makes it on the real timeline, then keep adjusting the same timeline by hand. Both of you share one undo history, and motion graphics stay editable as HTML and GSAP instead of being baked into pixels. The film here was edited in it.</p>
-          <dl>
-            <div><dt>Built with</dt><dd>Rust, TypeScript, Python</dd></div>
-            <div><dt>Status</dt><dd>In active development</dd></div>
-          </dl>
-          <p class="project__links"><a href="https://github.com/MrZarrar/Noctis-Editor" target="_blank" rel="noopener">Code on GitHub</a></p>
+      <div class="detail" role="dialog" aria-modal="true" aria-labelledby="detail-title" hidden data-lenis-prevent>
+        <div class="detail__stage"></div>
+        <div class="detail__info">
+          <p class="detail__tagline"></p>
+          <h2 class="detail__title" id="detail-title"></h2>
+          <div class="detail__body"></div>
+          <dl class="detail__facts"></dl>
+          <p class="detail__links"></p>
+          <nav class="detail__nav" aria-label="More projects">
+            <button type="button" class="detail__prev"></button>
+            <button type="button" class="detail__next"></button>
+          </nav>
         </div>
-      </article>
-
-      <article class="project" id="glycolens">
-        <header class="project__head">
-          <h2>glycolens</h2>
-          <p>Pattern finding for my Type 1 diabetes</p>
-        </header>
-        <figure class="frame glass" data-glass-scale="70">
-          <video src="../media/glycolens.mp4" poster="../media/glycolens.jpg" muted loop playsinline preload="none"></video>
-          <button class="sound glass" type="button" data-glass-scale="40">Play with sound</button>
-        </figure>
-        <div class="project__info">
-          <p>Every week it pulls fourteen days of data from my t:slim X2 pump and Dexcom G7, checks my carb ratio, correction factor, basal and pre-bolus timing with fixed rules, and suggests one small, safe change. Lows always win, and no step is bigger than ten percent. Noctis runs it every Sunday. It's built for me alone and isn't medical advice.</p>
-          <dl>
-            <div><dt>Built with</dt><dd>Python, PowerShell</dd></div>
-            <div><dt>Runs</dt><dd>Weekly, from my home PC</dd></div>
-          </dl>
-          <p class="project__links"><a href="https://github.com/MrZarrar/glycolens" target="_blank" rel="noopener">Code on GitHub</a></p>
-        </div>
-      </article>
-
-      <section class="more" aria-labelledby="more-title">
-        <h2 id="more-title">More I've built</h2>
-        <ul class="more__list">
-          <li>
-            <a href="https://github.com/MrZarrar/lie-detector" target="_blank" rel="noopener">
-              <strong>Lie Detector</strong>
-              <span>A free CLI that checks an AI coding agent's summary of its changes against the real git diff.</span>
-              <em>Python</em>
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/MrZarrar/List-N-Go" target="_blank" rel="noopener">
-              <strong>List 'N' Go</strong>
-              <span>A shopping list that scrapes live store prices so you know the total before you shop.</span>
-              <em>Node.js</em>
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/MrZarrar/Asset-Repository---Team-Project" target="_blank" rel="noopener">
-              <strong>Asset Repository</strong>
-              <span>A team project I ended up leading: an IT asset platform with an AI assistant and discussion board.</span>
-              <em>Svelte</em>
-            </a>
-          </li>
-          <li>
-            <div>
-              <strong>LevelUnbound</strong>
-              <span>My final year game: a grind-based RPG with adaptive difficulty, about 300 hours in one term.</span>
-              <em>Unity, C#</em>
-            </div>
-          </li>
-        </ul>
-      </section>
+        <button type="button" class="detail__close glass" aria-label="Back to all projects" data-glass-scale="36">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9m0-9l-9 9"/></svg>
+        </button>
+      </div>
     </main>
 
     <footer class="footer">
