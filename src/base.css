@@ -1,0 +1,229 @@
+@view-transition {
+  navigation: auto;
+}
+
+:root {
+  --night: #0a1a5c;
+  --night-deep: #050d38;
+  --day: #e7e5df;
+  --ink: #111214;
+  --paper: #eeede8;
+  --cobalt: #064fdc;
+  --signal: #f05b32;
+  --mist: #8f908c;
+  --display: "Clash Display", "Bahnschrift", system-ui, sans-serif;
+  --body: "Satoshi", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", "Cascadia Mono", monospace;
+  --gutter: clamp(20px, 3.4vw, 56px);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font: 400 1.0625rem/1.6 var(--body);
+  color: var(--paper);
+  background: var(--night-deep);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+::selection {
+  color: var(--paper);
+  background: var(--cobalt);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Liquid glass. Chromium gets real refraction from glass.js; everyone else gets this frosted fallback. */
+.glass {
+  position: relative;
+  isolation: isolate;
+  background: rgb(255 255 255 / 6%);
+  -webkit-backdrop-filter: blur(14px) saturate(1.7);
+  backdrop-filter: blur(14px) saturate(1.7);
+  box-shadow:
+    inset 1.5px 1.5px 0 rgb(255 255 255 / 55%),
+    inset -1px -1px 0 rgb(255 255 255 / 22%),
+    inset 0 0 24px rgb(255 255 255 / 10%),
+    0 18px 40px -12px rgb(0 0 0 / 35%);
+}
+
+.glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgb(255 255 255 / 22%), rgb(255 255 255 / 0%) 38%, rgb(255 255 255 / 0%) 70%, rgb(255 255 255 / 10%));
+  pointer-events: none;
+}
+
+.glass.is-refracting {
+  background: rgb(255 255 255 / 3%);
+}
+
+/* Navigation pill shared by every page */
+.nav {
+  position: fixed;
+  z-index: 50;
+  top: 18px;
+  left: 50%;
+  translate: -50% 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px;
+  border-radius: 999px;
+  color: var(--paper);
+}
+
+.nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  font: 500 0.9375rem/1 var(--body);
+  text-decoration: none;
+  transition: background-color 0.3s var(--ease);
+}
+
+.nav a:hover,
+.nav a[aria-current="page"] {
+  background: rgb(255 255 255 / 14%);
+}
+
+.nav .nav__mark {
+  font: 600 1rem/1 var(--display);
+  letter-spacing: 0.02em;
+}
+
+.nav .nav__icon {
+  width: 40px;
+  padding: 0;
+}
+
+.nav svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.nav__rule {
+  width: 1px;
+  height: 22px;
+  margin: 0 4px;
+  background: rgb(255 255 255 / 25%);
+}
+
+@media (max-width: 560px) {
+  .nav {
+    top: 12px;
+    gap: 0;
+  }
+
+  .nav a {
+    padding: 0 11px;
+    font-size: 0.875rem;
+  }
+
+  .nav .nav__icon {
+    width: 34px;
+  }
+}
+
+/* Footer shared by home and software pages */
+.footer {
+  padding: clamp(80px, 14vw, 180px) var(--gutter) 40px;
+  background: var(--night-deep);
+}
+
+.footer__lead {
+  max-width: 22ch;
+  margin: 0 0 clamp(32px, 5vw, 64px);
+  font: 500 clamp(1.5rem, 3vw, 2.4rem)/1.15 var(--display);
+  color: rgb(238 237 232 / 72%);
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2em 0.9em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font: 600 clamp(2.8rem, 9vw, 8.5rem)/0.95 var(--display);
+  letter-spacing: -0.02em;
+}
+
+.footer__links a {
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 0.06em no-repeat;
+  transition: background-size 0.6s var(--ease), color 0.3s;
+}
+
+.footer__links a:hover {
+  color: #fff;
+  background-size: 100% 0.06em;
+}
+
+.footer__base {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: clamp(60px, 10vw, 120px);
+  font-size: 0.875rem;
+  color: rgb(238 237 232 / 50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

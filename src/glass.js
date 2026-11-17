@@ -1,0 +1,115 @@
+// Liquid glass: each .glass element gets its own SVG filter whose displacement map bends the
+// backdrop near the element's rounded edges, like a thick lens. Only Chromium applies SVG
+// filters inside backdrop-filter, so other browsers keep the frosted CSS fallback.
+const NS = 'http://www.w3.org/2000/svg'
+const supported = !!navigator.userAgentData?.brands?.some((b) => b.brand === 'Chromium')
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
+
+let defs
+let count = 0
+
+function ensureDefs() {
+  if (defs) return defs
+  const svg = document.createElementNS(NS, 'svg')
+  svg.setAttribute('aria-hidden', 'true')
+  svg.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden'
+  defs = document.createElementNS(NS, 'defs')
+  svg.append(defs)
+  document.body.append(svg)
+  return defs
+}
+
+// Encodes, per pixel, which way to sample the backdrop: R is x, G is y, 128 means stay put.
+// ponytail: one CPU pass per size change; move to a cached map per aspect ratio if huge frames lag.
+function displacementMap(w, h, radius, bezel) {
+  const step = w * h > 400_000 ? 2 : 1
+  const cw = Math.ceil(w / step)
+  const ch = Math.ceil(h / step)
+  const canvas = document.createElement('canvas')
+  canvas.width = cw
+  canvas.height = ch
+  const ctx = canvas.getContext('2d')
+  const img = ctx.createImageData(cw, ch)
+  const hw = w / 2
+  const hh = h / 2
+  const r = Math.min(radius, hw, hh)
+
+  for (let py = 0; py < ch; py++) {
+    for (let px = 0; px < cw; px++) {
+      const x = px * step - hw
+      const y = py * step - hh
+      const qx = Math.abs(x) - (hw - r)
+      const qy = Math.abs(y) - (hh - r)
+      let nx
+      let ny
+      let dist
+      if (qx > 0 && qy > 0) {
+        const len = Math.hypot(qx, qy) || 1
+        dist = len - r
+        nx = (qx / len) * Math.sign(x)
+        ny = (qy / len) * Math.sign(y)
+      } else if (qx > qy) {
+        dist = qx - r
+        nx = Math.sign(x)
+        ny = 0
+      } else {
+        dist = qy - r
+        nx = 0
+        ny = Math.sign(y)
+      }
+      const t = Math.min(Math.max(-dist / bezel, 0), 1)
+      const strength = (1 - t) ** 2.4
+      const i = (py * cw + px) * 4
+      img.data[i] = 128 - nx * strength * 127
+      img.data[i + 1] = 128 - ny * strength * 127
+      img.data[i + 2] = 128
+      img.data[i + 3] = 255
+    }
+  }
+  ctx.putImageData(img, 0, 0)
+  return canvas.toDataURL()
+}
+
+function build(el, filter) {
+  const { width, height } = el.getBoundingClientRect()
+  const w = Math.round(width)
+  const h = Math.round(height)
+  if (!w || !h) return
+  const key = `${w}x${h}`
+  if (el.dataset.glassKey === key) return
+  el.dataset.glassKey = key
+
+  const radius = parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0
+  const bezel = Number(el.dataset.glassBezel) || Math.min(36, Math.min(w, h) / 2.4)
+  const scale = Number(el.dataset.glassScale) || 70
+  const blur = el.dataset.glassBlur ?? 1.2
+
+  filter.innerHTML = `
+    <feGaussianBlur in="SourceGraphic" stdDeviation="${blur}" result="soft" />
+    <feImage href="${displacementMap(w, h, radius, bezel)}" x="0" y="0" width="${w}" height="${h}" preserveAspectRatio="none" result="map" />
+    <feDisplacementMap in="soft" in2="map" scale="${scale}" xChannelSelector="R" yChannelSelector="G" result="bent" />
+    <feColorMatrix in="bent" type="saturate" values="1.6" />`
+  for (const [k, v] of Object.entries({ x: 0, y: 0, width: w, height: h })) filter.setAttribute(k, v)
+}
+
+export function glass(root = document) {
+  if (!supported || reduced) return
+  const d = ensureDefs()
+  for (const el of root.querySelectorAll('.glass:not(.is-refracting)')) {
+    const id = `liquid-glass-${++count}`
+    const filter = document.createElementNS(NS, 'filter')
+    filter.id = id
+    filter.setAttribute('filterUnits', 'userSpaceOnUse')
+    filter.setAttribute('primitiveUnits', 'userSpaceOnUse')
+    filter.setAttribute('color-interpolation-filters', 'sRGB')
+    d.append(filter)
+    build(el, filter)
+    el.classList.add('is-refracting')
+    el.style.backdropFilter = `url(#${id})`
+    let pending
+    new ResizeObserver(() => {
+      clearTimeout(pending)
+      pending = setTimeout(() => build(el, filter), 120)
+    }).observe(el)
+  }
+}

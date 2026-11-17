@@ -1,0 +1,19 @@
+{
+  "name": "mrzarrar-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && vite build art --outDir ../dist/art --emptyOutDir",
+    "preview": "vite preview --port 4173",
+    "art:sync": "node art/scripts/sync-content.mjs"
+  },
+  "devDependencies": {
+    "sharp": "0.34.3",
+    "vite": "6.4.2"
+  },
+  "dependencies": {
+    "gsap": "^3.13.0",
+    "lenis": "^1.3.0"
+  }
+}
