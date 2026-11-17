@@ -7,7 +7,7 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
 const portrait = matchMedia('(max-aspect-ratio: 1/1)')
 const split = document.querySelector('.split')
 
-if (!reduced) new Lenis({ autoRaf: true })
+const lenis = reduced ? null : new Lenis({ autoRaf: true })
 
 // Night side: real Noctis source, doubled so the scroll loops without a seam.
 const fall = document.createElement('div')
@@ -115,6 +115,24 @@ const names = [...document.querySelectorAll('.name')].map((name) => [...name.que
 const state = { p: reduced ? 50 : 100, target: 50 }
 let locked = !reduced
 let lastMove = -Infinity
+// A glass drop hanging off the divider says there's more below, and scrolls there.
+const about = document.querySelector('.about')
+about.id = 'about'
+const cue = document.createElement('a')
+cue.className = 'scroll-cue glass'
+cue.href = '#about'
+cue.dataset.glassScale = '36'
+cue.innerHTML = '<span>About me</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>'
+split.append(cue)
+cue.addEventListener('click', (e) => {
+  if (!lenis) return
+  e.preventDefault()
+  lenis.scrollTo(about, { duration: 1.4 })
+})
+addEventListener('scroll', () => {
+  cue.style.opacity = String(Math.max(0, 1 - scrollY / 240))
+}, { passive: true })
+
 const cursor = document.querySelector('.cursor')
 const cursorLabel = cursor.querySelector('span')
 const moveX = gsap.quickTo(cursor, 'x', { duration: 0.45, ease: 'power3.out' })
@@ -189,6 +207,7 @@ if (!reduced) {
     .to(state, { p: 50, duration: 1.6, ease: 'expo.inOut' }, 0.55)
     .from('.side__label', { autoAlpha: 0, y: 18, duration: 1, stagger: 0.12 }, 1.3)
     .from('.nav', { autoAlpha: 0, y: -16, duration: 1 }, 1.5)
+    .from(cue, { autoAlpha: 0, y: 24, duration: 1, clearProps: 'transform,visibility' }, 1.9)
     .from('.mask', { autoAlpha: 0, scale: 0.3, duration: 1.2, stagger: 0.12, ease: 'back.out(1.6)', clearProps: 'transform,opacity,visibility' }, 1.2)
 }
 

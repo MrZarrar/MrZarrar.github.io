@@ -94,7 +94,7 @@
 
 .name {
   right: var(--gutter);
-  bottom: clamp(18px, 3.4vh, 44px);
+  bottom: clamp(84px, 11vh, 112px);
   left: var(--gutter);
   display: flex;
   justify-content: space-between;
@@ -153,7 +153,7 @@
   backdrop-filter: none;
   z-index: 5;
   top: 14px;
-  bottom: 14px;
+  bottom: 88px;
   left: calc(var(--p) * 1% - 38px);
   width: 76px;
   border-radius: 38px;
@@ -222,7 +222,11 @@
 
   .side--day .side__label {
     top: auto;
-    bottom: clamp(28px, 5vh, 48px);
+    bottom: 96px;
+  }
+
+  .scroll-cue {
+    left: 50%;
   }
 
   .name {
@@ -264,6 +268,68 @@
   left: 0;
   transform-origin: 0 0;
   will-change: transform; /* without its own layer, Safari skips painting parts of a scaled copy */
+}
+
+/* Scroll cue: a glass drop under the divider that rides along with it */
+.scroll-cue {
+  position: absolute;
+  z-index: 7;
+  bottom: 22px;
+  left: calc(var(--p) * 1%);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 50px;
+  padding: 0 20px 0 24px;
+  border-radius: 999px;
+  translate: -50% 0;
+  font: 600 1rem/1 var(--display);
+  letter-spacing: 0.01em;
+  word-spacing: 0.14em;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: scale 0.4s var(--ease);
+}
+
+.scroll-cue.glass {
+  background: rgb(8 20 80 / 46%);
+}
+
+.scroll-cue:hover {
+  scale: 1.06;
+}
+
+.scroll-cue svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: cue-drop 1.8s var(--ease) infinite;
+}
+
+.split:has(.scroll-cue:hover) .cursor {
+  opacity: 0;
+}
+
+@keyframes cue-drop {
+  0% {
+    opacity: 0;
+    translate: 0 -5px;
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    translate: 0 7px;
+  }
 }
 
 /* The two masks ride the divider: happy and blue for night, sad and orange for day */

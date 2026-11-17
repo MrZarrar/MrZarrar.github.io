@@ -7,8 +7,9 @@ import code from './code.txt?raw'
 gsap.registerPlugin(ScrollTrigger)
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
 
+let lenis
 if (!reduced) {
-  const lenis = new Lenis({ anchors: true })
+  lenis = new Lenis({ anchors: true })
   lenis.on('scroll', ScrollTrigger.update)
   gsap.ticker.add((t) => lenis.raf(t * 1000))
   gsap.ticker.lagSmoothing(0)
@@ -53,33 +54,64 @@ if (!reduced) {
   }
 }
 
-// Demos play silently while on screen; the button restarts one with sound and mutes the rest.
+// Demos play silently while on screen. Clicking one focuses it: the page dims, the film is
+// centred and sized to the screen, and it restarts with sound.
 const frames = [...document.querySelectorAll('.frame')]
+const backdrop = document.createElement('div')
+backdrop.className = 'focus-backdrop'
+document.body.append(backdrop)
+let focused = null
 
-function setSound(frame, on) {
+function unfocus() {
+  if (!focused) return
+  const frame = focused
   const video = frame.querySelector('video')
-  frame.classList.toggle('is-unmuted', on)
-  frame.querySelector('.sound').textContent = on ? 'Mute' : 'Play with sound'
-  video.muted = !on
-  video.controls = on
+  focused = null
+  video.muted = true
+  video.controls = false
+  frame.classList.remove('is-focused')
+  frame.style.scale = ''
+  frame.querySelector('.sound').textContent = 'Play with sound'
+  document.body.classList.remove('is-focusing')
 }
+
+function focus(frame) {
+  if (focused === frame) return
+  unfocus()
+  focused = frame
+  const video = frame.querySelector('video')
+  const top = frame.getBoundingClientRect().top + scrollY
+  const h = frame.offsetHeight
+  const scale = Math.min((innerWidth * 0.94) / frame.offsetWidth, (innerHeight * 0.9) / h, 1.12)
+  frame.style.scale = scale.toFixed(3)
+  frame.classList.add('is-focused')
+  frame.querySelector('.sound').textContent = 'Close'
+  document.body.classList.add('is-focusing')
+  video.muted = false
+  video.controls = true
+  video.currentTime = 0
+  video.play().catch(() => {})
+  // the frame scales from its top edge, so its centre lands at top + scaled height / 2
+  const target = top + (scale * h) / 2 - innerHeight / 2
+  if (lenis) lenis.scrollTo(target, { duration: 1.1 })
+  else scrollTo({ top: target })
+}
+
+backdrop.addEventListener('click', unfocus)
+addEventListener('keydown', (e) => { if (e.key === 'Escape') unfocus() })
 
 for (const frame of frames) {
   const video = frame.querySelector('video')
+  video.addEventListener('click', () => focus(frame))
   frame.querySelector('.sound').addEventListener('click', () => {
-    const on = video.muted
-    for (const other of frames) if (other !== frame) setSound(other, false)
-    setSound(frame, on)
-    if (on) {
-      video.currentTime = 0
-      video.play().catch(() => {})
-    }
+    if (focused === frame) unfocus()
+    else focus(frame)
   })
   new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting && (!reduced || !video.muted)) video.play().catch(() => {})
+    if (entry.isIntersecting && (!reduced || focused === frame)) video.play().catch(() => {})
     else {
       video.pause()
-      if (!video.muted) setSound(frame, false)
+      if (focused === frame) unfocus()
     }
   }, { threshold: 0.35 }).observe(video)
 }

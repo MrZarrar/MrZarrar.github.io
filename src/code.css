@@ -144,7 +144,48 @@ body {
   scale: 1.05;
 }
 
-.frame.is-unmuted .sound {
+.frame video {
+  cursor: pointer;
+}
+
+.frame {
+  transition: scale 0.8s var(--ease);
+}
+
+.frame.is-focused {
+  z-index: 45;
+}
+
+.frame.is-focused video {
+  cursor: auto;
+}
+
+.focus-backdrop {
+  position: fixed;
+  z-index: 40;
+  inset: 0;
+  background: rgb(3 8 32 / 86%);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease);
+}
+
+.is-focusing .focus-backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav {
+  transition: opacity 0.4s var(--ease);
+}
+
+.is-focusing .nav {
+  opacity: 0.25;
+}
+
+.frame.is-focused .sound {
   top: clamp(18px, 2.4vw, 34px);
   bottom: auto;
 }
