@@ -71,9 +71,9 @@ function displacementMap(w, h, radius, bezel) {
 }
 
 function build(el, filter) {
-  const { width, height } = el.getBoundingClientRect()
-  const w = Math.round(width)
-  const h = Math.round(height)
+  // offset sizes ignore transforms, so a frame mid-scale still gets a full-size map
+  const w = el.offsetWidth
+  const h = el.offsetHeight
   if (!w || !h) return
   const key = `${w}x${h}`
   if (el.dataset.glassKey === key) return

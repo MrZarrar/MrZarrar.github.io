@@ -1,1 +1,161 @@
-<!doctype html><html><body></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Software | Mushaf Zarrar</title>
+    <meta name="description" content="Software by Mushaf Zarrar: Noctis OS, Noctis Editor, glycolens and more, with demo films and code." />
+    <meta name="theme-color" content="#0a1a5c" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230a1a5c'/%3E%3Cpath d='M32 0h32v64H32z' fill='%23e7e5df'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" />
+    <link rel="stylesheet" href="../src/base.css" />
+    <link rel="stylesheet" href="../src/code.css" />
+  </head>
+  <body>
+    <nav class="nav glass" aria-label="Site">
+      <a class="nav__mark" href="../">MZ</a>
+      <a href="./" aria-current="page">Software</a>
+      <a href="../art/">Art</a>
+      <span class="nav__rule" aria-hidden="true"></span>
+      <a class="nav__icon" href="https://www.linkedin.com/in/m-zarrar" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+      </a>
+      <a class="nav__icon" href="https://github.com/MrZarrar" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57l-.02-2.04c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3"/></svg>
+      </a>
+      <a class="nav__icon" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </nav>
+
+    <main>
+      <header class="intro">
+        <pre class="codefall" aria-hidden="true"></pre>
+        <h1 class="intro__title">Software</h1>
+        <div class="intro__text">
+          <p>I build tools for my own life first. If I use something every day, it gets better every day. These three are running on my PCs right now.</p>
+          <ul class="intro__index">
+            <li><a href="#noctis-os">Noctis OS</a></li>
+            <li><a href="#noctis-editor">Noctis Editor</a></li>
+            <li><a href="#glycolens">glycolens</a></li>
+          </ul>
+        </div>
+      </header>
+
+      <article class="project" id="noctis-os">
+        <header class="project__head">
+          <h2>Noctis OS</h2>
+          <p>My own control plane for AI agents</p>
+        </header>
+        <figure class="frame glass" data-glass-scale="70">
+          <video src="../media/noctis-os.mp4" poster="../media/noctis-os.jpg" muted loop playsinline preload="none"></video>
+          <button class="sound glass" type="button" data-glass-scale="40">Play with sound</button>
+        </figure>
+        <div class="project__info">
+          <p>I talk to Noctis from my phone or my desk. It runs Claude Code and Codex across my home and work PCs, remembers what matters from my notes, opens live panels while it works, and stops to ask me before anything spends money or leaves the house. Vesper is the name it answers to.</p>
+          <dl>
+            <div><dt>Built with</dt><dd>TypeScript, React, Node, Rust</dd></div>
+            <div><dt>Runs on</dt><dd>Two Windows PCs and my phone</dd></div>
+          </dl>
+          <p class="project__links"><a href="https://github.com/MrZarrar/Noctis-OS" target="_blank" rel="noopener">Code on GitHub</a></p>
+        </div>
+      </article>
+
+      <article class="project" id="noctis-editor">
+        <header class="project__head">
+          <h2>Noctis Editor</h2>
+          <p>A video editor Claude can cut with you</p>
+        </header>
+        <figure class="frame glass" data-glass-scale="70">
+          <video src="../media/noctis-editor.mp4" poster="../media/noctis-editor.jpg" muted loop playsinline preload="none"></video>
+          <button class="sound glass" type="button" data-glass-scale="40">Play with sound</button>
+        </figure>
+        <div class="project__info">
+          <p>Ask for an edit in plain words and Claude makes it on the real timeline, then keep adjusting the same timeline by hand. Both of you share one undo history, and motion graphics stay editable as HTML and GSAP instead of being baked into pixels. The film here was edited in it.</p>
+          <dl>
+            <div><dt>Built with</dt><dd>Rust, TypeScript, Python</dd></div>
+            <div><dt>Status</dt><dd>In active development</dd></div>
+          </dl>
+          <p class="project__links"><a href="https://github.com/MrZarrar/Noctis-Editor" target="_blank" rel="noopener">Code on GitHub</a></p>
+        </div>
+      </article>
+
+      <article class="project" id="glycolens">
+        <header class="project__head">
+          <h2>glycolens</h2>
+          <p>Pattern finding for my Type 1 diabetes</p>
+        </header>
+        <figure class="frame glass" data-glass-scale="70">
+          <video src="../media/glycolens.mp4" poster="../media/glycolens.jpg" muted loop playsinline preload="none"></video>
+          <button class="sound glass" type="button" data-glass-scale="40">Play with sound</button>
+        </figure>
+        <div class="project__info">
+          <p>Every week it pulls fourteen days of data from my t:slim X2 pump and Dexcom G7, checks my carb ratio, correction factor, basal and pre-bolus timing with fixed rules, and suggests one small, safe change. Lows always win, and no step is bigger than ten percent. Noctis runs it every Sunday. It's built for me alone and isn't medical advice.</p>
+          <dl>
+            <div><dt>Built with</dt><dd>Python, PowerShell</dd></div>
+            <div><dt>Runs</dt><dd>Weekly, from my home PC</dd></div>
+          </dl>
+          <p class="project__links"><a href="https://github.com/MrZarrar/glycolens" target="_blank" rel="noopener">Code on GitHub</a></p>
+        </div>
+      </article>
+
+      <section class="more" aria-labelledby="more-title">
+        <h2 id="more-title">More I've built</h2>
+        <ul class="more__list">
+          <li>
+            <a href="https://github.com/MrZarrar/lie-detector" target="_blank" rel="noopener">
+              <strong>Lie Detector</strong>
+              <span>A free CLI that checks an AI coding agent's summary of its changes against the real git diff.</span>
+              <em>Python</em>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/MrZarrar/Jarvis-Sub-Agent-Dashboard" target="_blank" rel="noopener">
+              <strong>Jarvis Dashboard</strong>
+              <span>The self-hosted agent dashboard that came before Noctis: missions, approvals and mobile control.</span>
+              <em>TypeScript</em>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/MrZarrar/List-N-Go" target="_blank" rel="noopener">
+              <strong>List 'N' Go</strong>
+              <span>A shopping list that scrapes live store prices so you know the total before you shop.</span>
+              <em>Node.js</em>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/MrZarrar/Asset-Repository---Team-Project" target="_blank" rel="noopener">
+              <strong>Asset Repository</strong>
+              <span>A team project I ended up leading: an IT asset platform with an AI assistant and discussion board.</span>
+              <em>Svelte</em>
+            </a>
+          </li>
+          <li>
+            <div>
+              <strong>LevelUnbound</strong>
+              <span>My final year game: a grind-based RPG with adaptive difficulty, about 300 hours in one term.</span>
+              <em>Unity, C#</em>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__lead">Find me where the work goes up.</p>
+      <ul class="footer__links">
+        <li><a href="https://www.linkedin.com/in/m-zarrar" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://github.com/MrZarrar" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+      <div class="footer__base">
+        <span>Mushaf Zarrar</span>
+        <span>Designed and built by hand, with Claude</span>
+      </div>
+    </footer>
+
+    <script type="module" src="../src/code.js"></script>
+  </body>
+</html>

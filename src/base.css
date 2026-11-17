@@ -227,3 +227,28 @@ a {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Real Noctis source scrolling behind the night side */
+.codefall {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  margin: 0;
+  padding: 0 var(--gutter);
+  font: 400 13px/1.75 var(--mono);
+  color: rgb(238 237 232 / 9%);
+  white-space: pre;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 70%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 70%, transparent);
+}
+
+.codefall > div {
+  animation: drift 90s linear infinite;
+}
+
+@keyframes drift {
+  to {
+    transform: translateY(-50%);
+  }
+}
