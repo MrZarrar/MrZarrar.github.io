@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="n" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#5b8dff"/>
+      <stop offset="1" stop-color="#064fdc"/>
+    </linearGradient>
+    <linearGradient id="d" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#ffa36b"/>
+      <stop offset="1" stop-color="#e2501f"/>
+    </linearGradient>
+  </defs>
+  <path d="M12 24C5 33 16 41 9 54l3-1.5 1.5 3" fill="none" stroke="#c7322a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M50 31C57 24 47 16 54 7l-3.2.6-.9-3.1" fill="none" stroke="#c7322a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(41 40) rotate(13)">
+    <path d="M-13-12Q0-18 13-12C13 2 8 14 0 16C-8 14-13 2-13-12Z" fill="url(#d)"/>
+    <path d="M-8.5-2.5Q-5-7.5-1.5-2.5Q-5-4.5-8.5-2.5ZM1.5-2.5Q5-7.5 8.5-2.5Q5-4.5 1.5-2.5Z" fill="#2a1208"/>
+    <path d="M-6 9.5Q0 2.5 6 9.5Q0 6.5-6 9.5Z" fill="#2a1208"/>
+  </g>
+  <g transform="translate(23 25) rotate(-14)">
+    <path d="M-13-12Q0-18 13-12C13 2 8 14 0 16C-8 14-13 2-13-12Z" fill="url(#n)"/>
+    <path d="M-8.5-2Q-5-7.5-1.5-2Q-5-4-8.5-2ZM1.5-2Q5-7.5 8.5-2Q5-4 1.5-2Z" fill="#06123d"/>
+    <path d="M-6.5 4Q0 12.5 6.5 4Q0 7.5-6.5 4Z" fill="#06123d"/>
+  </g>
+</svg>

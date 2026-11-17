@@ -1,0 +1,72 @@
+/* The day side: the same exhibition, warmed up to sit opposite the night-blue software page. */
+@view-transition {
+  navigation: auto;
+}
+
+:root {
+  font-family: "Satoshi", "Bahnschrift", sans-serif;
+  --cobalt: #c2410c;
+  --signal: #f05b32;
+  --utility: "Satoshi", "Bahnschrift", sans-serif;
+}
+
+.identity strong,
+.room-sign,
+.room-heading h1,
+.selected-metadata h2,
+.section-heading h2,
+.about-room h2,
+.artwork-dialog figcaption h2 {
+  font-family: "Clash Display", "Bahnschrift", sans-serif;
+}
+
+.identity strong {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.room-navigation > a,
+.room-heading p,
+.room-heading > span {
+  font-weight: 600;
+}
+
+.room-sign {
+  color: var(--signal);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  word-spacing: 0.2em;
+  animation: day-rise 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+.room-heading h1,
+.section-heading h2,
+.about-room h2 {
+  letter-spacing: -0.01em;
+}
+
+@keyframes day-rise {
+  from {
+    opacity: 0;
+    translate: 0 45%;
+  }
+}
+
+/* The shared glass nav sits in the middle of the gallery's own header. */
+.nav--day {
+  top: calc((var(--header-height) - 52px) / 2);
+  z-index: 40;
+}
+
+@media (max-width: 900px) {
+  .nav--day {
+    top: auto;
+    bottom: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .room-sign {
+    animation: none;
+  }
+}

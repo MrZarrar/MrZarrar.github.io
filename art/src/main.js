@@ -1,4 +1,7 @@
+import '../../src/chrome.css'
 import './styles.css'
+import './day.css'
+import { glass } from '../../src/glass.js'
 
 import { artworks, videos } from './generated/gallery.js'
 import { createExhibitionDialog } from './exhibition-dialog.js'
@@ -329,3 +332,5 @@ const roomObserver = new IntersectionObserver((entries) => {
 roomSections.forEach((room) => roomObserver.observe(room))
 
 window.exhibition = { artworks, videos, state, galleryController, exhibitionDialog, videoRoom }
+
+glass()

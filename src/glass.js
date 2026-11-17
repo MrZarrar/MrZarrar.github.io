@@ -1,9 +1,8 @@
 // Liquid glass: each .glass element gets its own SVG filter whose displacement map bends the
-// backdrop near the element's rounded edges, like a thick lens. Only Chromium applies SVG
-// filters inside backdrop-filter, so other browsers keep the frosted CSS fallback.
+// backdrop near its rounded edges, like a thick lens. Only Chromium applies SVG filters inside
+// backdrop-filter; elsewhere glass stays frosted unless the page builds its own lens (home.js).
 const NS = 'http://www.w3.org/2000/svg'
-const supported = !!navigator.userAgentData?.brands?.some((b) => b.brand === 'Chromium')
-const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
+export const refracts = !!navigator.userAgentData?.brands?.some((b) => b.brand === 'Chromium')
 
 let defs
 let count = 0
@@ -12,6 +11,7 @@ function ensureDefs() {
   if (defs) return defs
   const svg = document.createElementNS(NS, 'svg')
   svg.setAttribute('aria-hidden', 'true')
+  svg.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
   svg.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden'
   defs = document.createElementNS(NS, 'defs')
   svg.append(defs)
@@ -84,22 +84,24 @@ function build(el, filter) {
   const scale = Number(el.dataset.glassScale) || 70
   const blur = el.dataset.glassBlur ?? 1.2
 
+  const map = displacementMap(w, h, radius, bezel)
+  // The filter region is the element's own box (objectBoundingBox) and feImage takes that region
+  // by default: Safari draws nothing when these are given in userSpaceOnUse pixels.
   filter.innerHTML = `
     <feGaussianBlur in="SourceGraphic" stdDeviation="${blur}" result="soft" />
-    <feImage href="${displacementMap(w, h, radius, bezel)}" x="0" y="0" width="${w}" height="${h}" preserveAspectRatio="none" result="map" />
+    <feImage href="${map}" xlink:href="${map}" preserveAspectRatio="none" result="map" />
     <feDisplacementMap in="soft" in2="map" scale="${scale}" xChannelSelector="R" yChannelSelector="G" result="bent" />
     <feColorMatrix in="bent" type="saturate" values="1.6" />`
-  for (const [k, v] of Object.entries({ x: 0, y: 0, width: w, height: h })) filter.setAttribute(k, v)
 }
 
 export function glass(root = document) {
-  if (!supported || reduced) return
   const d = ensureDefs()
   for (const el of root.querySelectorAll('.glass:not(.is-refracting)')) {
+    if (!refracts) return
     const id = `liquid-glass-${++count}`
     const filter = document.createElementNS(NS, 'filter')
     filter.id = id
-    filter.setAttribute('filterUnits', 'userSpaceOnUse')
+    for (const [k, v] of Object.entries({ x: 0, y: 0, width: 1, height: 1 })) filter.setAttribute(k, v)
     filter.setAttribute('primitiveUnits', 'userSpaceOnUse')
     filter.setAttribute('color-interpolation-filters', 'sRGB')
     d.append(filter)

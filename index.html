@@ -6,7 +6,7 @@
     <title>Mushaf Zarrar</title>
     <meta name="description" content="Mushaf Zarrar: software engineer and digital artist in London. The software I build and the art I make, in one place." />
     <meta name="theme-color" content="#0a1a5c" />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230a1a5c'/%3E%3Cpath d='M32 0h32v64H32z' fill='%23e7e5df'/%3E%3C/svg%3E" />
+    <link rel="icon" type="image/svg+xml" href="./masks.svg" />
     <link rel="preconnect" href="https://api.fontshare.com" />
     <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" />
@@ -15,7 +15,7 @@
   </head>
   <body>
     <nav class="nav glass" aria-label="Site">
-      <a class="nav__mark" href="./" aria-current="page">MZ</a>
+      <a class="nav__mark" href="./" aria-current="page" aria-label="Mushaf Zarrar, home"><img src="./masks.svg" alt="" width="30" height="30" /></a>
       <a href="./code/">Software</a>
       <a href="./art/">Art</a>
       <span class="nav__rule" aria-hidden="true"></span>
@@ -48,38 +48,38 @@
           </div>
           <h1 class="name" aria-label="Mushaf Zarrar"><span>Mushaf</span><span>Zarrar</span></h1>
         </a>
-        <div class="divider glass" data-glass-scale="90" data-glass-bezel="40" aria-hidden="true"></div>
+        <div class="divider glass" data-glass="clone" data-glass-scale="90" data-glass-bezel="40" aria-hidden="true"></div>
+        <div class="masks" aria-hidden="true">
+          <svg class="mask mask--night" viewBox="-15 -18 30 36">
+            <defs><linearGradient id="mask-n" x1="0" y1="0" x2="0.4" y2="1"><stop offset="0" stop-color="#5b8dff"/><stop offset="1" stop-color="#064fdc"/></linearGradient></defs>
+            <path d="M-13-12Q0-18 13-12C13 2 8 14 0 16C-8 14-13 2-13-12Z" fill="url(#mask-n)"/><ellipse cx="-5" cy="-9" rx="6" ry="2.4" transform="rotate(-12)" fill="#fff" opacity=".28"/>
+            <path d="M-8.5-2Q-5-7.5-1.5-2Q-5-4-8.5-2ZM1.5-2Q5-7.5 8.5-2Q5-4 1.5-2Z" fill="#06123d"/>
+            <path d="M-6.5 4Q0 12.5 6.5 4Q0 7.5-6.5 4Z" fill="#06123d"/>
+          </svg>
+          <svg class="mask mask--day" viewBox="-15 -18 30 36">
+            <defs><linearGradient id="mask-d" x1="0" y1="0" x2="0.4" y2="1"><stop offset="0" stop-color="#ffa36b"/><stop offset="1" stop-color="#e2501f"/></linearGradient></defs>
+            <path d="M-13-12Q0-18 13-12C13 2 8 14 0 16C-8 14-13 2-13-12Z" fill="url(#mask-d)"/><ellipse cx="-5" cy="-9" rx="6" ry="2.4" transform="rotate(-12)" fill="#fff" opacity=".28"/>
+            <path d="M-8.5-2.5Q-5-7.5-1.5-2.5Q-5-4.5-8.5-2.5ZM1.5-2.5Q5-7.5 8.5-2.5Q5-4.5 1.5-2.5Z" fill="#2a1208"/>
+            <path d="M-6 9.5Q0 2.5 6 9.5Q0 6.5-6 9.5Z" fill="#2a1208"/>
+          </svg>
+        </div>
         <div class="cursor glass" data-glass-scale="40" aria-hidden="true"><span></span></div>
       </section>
 
-      <section class="about">
-        <p class="about__lead">
-          I'm Mushaf, a software engineer in London. I build the tools I want to use, then I put the laptop down and draw.
-        </p>
-        <div class="about__body">
-          <p>
-            I came to computer science late, out of a medicine track, with no code behind me. I haven't stopped building since. These days that means AI agents that run my PCs, a video editor Claude can cut for me, and a tool that reads my own diabetes data.
-          </p>
-          <p>
-            The art comes from the same place: dark, cinematic, a little villainous. Batman turns up more than he should.
-          </p>
-          <dl class="facts">
-            <div><dt>Work</dt><dd>Graduate software engineer at Travel Vogue</dd></div>
-            <div><dt>Study</dt><dd>BSc Computer Science, Royal Holloway, 2026</dd></div>
-            <div><dt>Based</dt><dd>West London</dd></div>
-            <div><dt>Since I was 8</dt><dd>Type 1 diabetic, which is why health tech is personal</dd></div>
-          </dl>
+      <section class="about" aria-labelledby="about-title">
+        <video class="about__bg" src="./media/setup.mp4" poster="./media/setup.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <div class="about__inner">
+          <h2 class="about__lead" id="about-title">I run on pure delusion.</h2>
+          <div class="about__body">
+            <p>I'm Mushaf, a software engineer and digital artist in London. Pure delusion is how I get through everything. Whatever is in front of me, I decide it works out before there's any reason to, and then I move like it already has. People ask how I stay so calm. That's how.</p>
+            <blockquote>
+              <p>"So the delusion was never blind, just a choice to believe."</p>
+              <cite>From Pure Delusion, one of my tracks</cite>
+            </blockquote>
+            <p>The other thing I'd put my name to is how deep I go. When something grabs me, whether it's software, a painting or a video edit, I jump straight into the deep end and stay there. Hours turn into days without me noticing. My final year game took three hundred hours in one term, and some paintings take forty. I count it as my greatest ability.</p>
+          </div>
         </div>
-      </section>
-
-      <section class="setup" aria-labelledby="setup-title">
-        <div class="setup__text">
-          <h2 id="setup-title">Where it all happens</h2>
-          <p>My home PC. Noctis runs here, the art gets drawn here, and most of my late nights end here.</p>
-        </div>
-        <figure class="setup__frame glass" data-glass-scale="60">
-          <video src="./media/setup.mp4" muted loop playsinline preload="metadata"></video>
-        </figure>
+        <p class="about__caption">My desk at night, where most of this happens.</p>
       </section>
     </main>
 
