@@ -200,13 +200,17 @@
 
   .side--day .side__label {
     top: auto;
-    bottom: calc(28vw * 2 + 36px);
+    bottom: clamp(28px, 5vh, 48px);
   }
 
   .name {
+    top: 50%;
+    bottom: auto;
     flex-direction: column;
-    font-size: 26vw;
+    gap: 0.16em;
+    font-size: 21vw;
     line-height: 0.82;
+    translate: 0 -50%;
   }
 
   .name > span:last-child {
