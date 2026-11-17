@@ -52,6 +52,20 @@
   }
 }
 
+/* Bigger, calmer labels: the old monospace sizes were too small once set in Satoshi */
+.room-navigation > a {
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.room-heading p,
+.section-heading p,
+.gallery-controls,
+.selected-metadata p {
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+}
+
 /* The shared glass nav sits in the middle of the gallery's own header. */
 .nav--day {
   top: calc((var(--header-height) - 52px) / 2);

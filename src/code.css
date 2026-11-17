@@ -47,7 +47,7 @@ body {
   margin: 0;
   font-size: clamp(1.1rem, 1.6vw, 1.35rem);
   line-height: 1.55;
-  color: rgb(238 237 232 / 82%);
+  color: rgb(242 241 237 / 92%);
 }
 
 .intro__index {
@@ -160,7 +160,7 @@ body {
   margin: 0;
   font-size: clamp(1.05rem, 1.35vw, 1.2rem);
   line-height: 1.7;
-  color: rgb(238 237 232 / 86%);
+  color: rgb(242 241 237 / 94%);
 }
 
 .project__info dl {
@@ -175,8 +175,8 @@ body {
 }
 
 .project__info dt {
-  font-size: 0.875rem;
-  color: rgb(238 237 232 / 55%);
+  font-size: 0.9rem;
+  color: rgb(238 237 232 / 68%);
 }
 
 .project__info dd {
@@ -252,13 +252,13 @@ body {
 }
 
 .more__list span {
-  color: rgb(238 237 232 / 74%);
+  color: rgb(242 241 237 / 86%);
 }
 
 .more__list em {
   justify-self: end;
   font-style: normal;
-  color: rgb(238 237 232 / 50%);
+  color: rgb(238 237 232 / 66%);
 }
 
 .more__list a:hover strong {
