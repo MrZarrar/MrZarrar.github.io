@@ -1,10 +1,12 @@
 import gsap from 'gsap'
 import Lenis from 'lenis'
 import { glass, refracts } from './glass.js'
+import { bindDividerDrag } from './divider-drag.js'
 import code from './code.txt?raw'
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
 const portrait = matchMedia('(max-aspect-ratio: 1/1)')
+const hover = matchMedia('(hover: hover) and (pointer: fine)')
 const split = document.querySelector('.split')
 
 const lenis = reduced ? null : new Lenis({ autoRaf: true })
@@ -112,8 +114,7 @@ function placeLens(x, y) {
 const names = [...document.querySelectorAll('.name')].map((name) => [...name.querySelectorAll('.char')])
 
 // The divider: the side under the pointer opens up, and it sways on its own when left alone.
-const state = { p: reduced ? 50 : 100, target: 50 }
-let locked = !reduced
+const state = { p: reduced ? 50 : 100, target: 50, locked: !reduced }
 let lastMove = -Infinity
 // A glass drop hanging off the divider says there's more below, and scrolls there.
 const about = document.querySelector('.about')
@@ -144,6 +145,7 @@ function fraction(e) {
 }
 
 split.addEventListener('pointermove', (e) => {
+  if (e.pointerType !== 'mouse' || !hover.matches || isDragging()) return
   const f = fraction(e)
   if (!reduced) state.target = 50 - (f * 100 - 50) * 0.55
   lastMove = performance.now()
@@ -158,16 +160,23 @@ split.addEventListener('pointermove', (e) => {
   cursor.classList.add('is-live')
 })
 
+function renderDivider() {
+  split.style.setProperty('--p', state.p.toFixed(3))
+  divider.setAttribute('aria-valuenow', String(Math.round(state.p)))
+  divider.setAttribute('aria-orientation', portrait.matches ? 'vertical' : 'horizontal')
+  const x = portrait.matches ? 12 : (state.p / 100) * W - 38
+  const y = portrait.matches ? (state.p / 100) * H - 30 : 14
+  if (bands.length) placeLens(x, y)
+}
+const isDragging = bindDividerDrag(divider, split, state, portrait, renderDivider)
+
 gsap.ticker.add(() => {
-  if (!locked && !reduced) {
+  if (!state.locked && !reduced && hover.matches && !isDragging()) {
     const now = performance.now()
     if (now - lastMove > 2600) state.target = 50 + Math.sin(now / 1900) * 8
     state.p += (state.target - state.p) * 0.065
   }
-  split.style.setProperty('--p', state.p.toFixed(3))
-  const x = portrait.matches ? 12 : (state.p / 100) * W - 38
-  const y = portrait.matches ? (state.p / 100) * H - 30 : 14
-  if (bands.length) placeLens(x, y)
+  renderDivider()
 })
 
 split.addEventListener('pointerleave', () => { delete split.dataset.hover })
@@ -177,7 +186,7 @@ for (const side of document.querySelectorAll('.side')) {
   side.addEventListener('click', (e) => {
     if (reduced || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return
     e.preventDefault()
-    locked = true
+    state.locked = true
     cursor.classList.remove('is-live')
     const chosen = side.dataset.side
     gsap.to(`.mask--${chosen}`, { scale: 2.2, rotate: 0, duration: 0.8, ease: 'expo.inOut' })
@@ -196,12 +205,12 @@ addEventListener('pageshow', (e) => {
   gsap.killTweensOf(state)
   gsap.set('.mask', { clearProps: 'all' })
   state.p = 50
-  locked = false
+  state.locked = false
 })
 
 // The one opening moment: the name rises, then day slides in from the right.
 if (!reduced) {
-  const intro = gsap.timeline({ defaults: { ease: 'expo.out' }, onComplete: () => { locked = false } })
+  const intro = gsap.timeline({ defaults: { ease: 'expo.out' }, onComplete: () => { state.locked = false } })
   for (const chars of names) intro.from(chars, { yPercent: 108, duration: 1.3, stagger: 0.045 }, 0.15)
   intro
     .to(state, { p: 50, duration: 1.6, ease: 'expo.inOut' }, 0.55)

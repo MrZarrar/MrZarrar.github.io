@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "test": "node --test tests/*.test.mjs",
     "dev": "vite",
     "build": "vite build && vite build art --outDir ../dist/art --emptyOutDir",
     "preview": "vite preview --port 4173",
